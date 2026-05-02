@@ -28,3 +28,19 @@ This project is a simple Single Page Application (SPA) built with HTML, CSS, and
 3. Use the "Load an Inspirational Quote" button to fetch a quote from an API.
 4. Use the "Fetch Todos" button to load a list of todos.
 5. Submit the form on the Create Post page to send a POST request and view the response.
+
+## Run locally with npm
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the local server:
+
+```bash
+npm start
+```
+
+3. Open the URL shown in your terminal (usually `http://127.0.0.1:5000`) in your browser.
