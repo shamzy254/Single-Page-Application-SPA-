@@ -1,11 +1,6 @@
-const content = document.getElementById('content');
-const navButtons = document.querySelectorAll('.nav-button');
-const templates = {
-  home: document.getElementById('home-template'),
-  todos: document.getElementById('todos-template'),
-  create: document.getElementById('create-template'),
-  dictionary: document.getElementById('dictionary-template'),
-};
+let content;
+let navButtons;
+let templates;
 const DICTIONARY_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
 function setActiveNav(page) {
@@ -217,8 +212,39 @@ function registerDictionaryEvents() {
   });
 }
 
-navButtons.forEach(button => {
-  button.addEventListener('click', () => render(button.dataset.page));
-});
+function initializeApp() {
+  if (typeof document === 'undefined') return;
 
-render('home');
+  content = document.getElementById('content');
+  navButtons = document.querySelectorAll('.nav-button');
+  templates = {
+    home: document.getElementById('home-template'),
+    todos: document.getElementById('todos-template'),
+    create: document.getElementById('create-template'),
+    dictionary: document.getElementById('dictionary-template'),
+  };
+
+  if (!content || !navButtons.length) return;
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', () => render(button.dataset.page));
+  });
+
+  render('home');
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+  } else {
+    initializeApp();
+  }
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    getFallbackText,
+    summarizeSynonyms,
+    renderDictionaryResult,
+  };
+}
