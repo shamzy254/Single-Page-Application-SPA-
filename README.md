@@ -1,4 +1,4 @@
-# Single-Page-Application-SPA-
+# Single-Page-Application-SPA- follows modern web development practices
 
 This project is a simple Single Page Application (SPA) built with HTML, CSS, and JavaScript.
 
