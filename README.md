@@ -29,18 +29,41 @@ This project is a simple Single Page Application (SPA) built with HTML, CSS, and
 4. Use the "Fetch Todos" button to load a list of todos.
 5. Submit the form on the Create Post page to send a POST request and view the response.
 
-## Run locally with npm
+## View and fork on GitHub
 
-1. Install dependencies:
+1. Visit the repository page:
+   - `https://github.com/shamzy254/Single-Page-Application-SPA-`
+2. Click the `Fork` button in the top-right corner to create your own copy.
+3. Clone your fork locally:
+
+```bash
+git clone https://github.com/<your-username>/Single-Page-Application-SPA-.git
+cd Single-Page-Application-SPA-
+```
+
+4. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Start the local server:
+5. Start the local server:
 
 ```bash
 npm start
 ```
 
-3. Open the URL shown in your terminal (usually `http://127.0.0.1:5000`) in your browser.
+6. Open the URL shown in your terminal (usually `http://127.0.0.1:5000`) in your browser.
+
+## Local development workflow
+
+- Edit `index.html`, `styles.css`, or `script.js`.
+- Save your changes.
+- Refresh your browser to see updates.
+- If you want to keep your fork synced with the original repository, add the upstream remote:
+
+```bash
+git remote add upstream https://github.com/shamzy254/Single-Page-Application-SPA-.git
+git fetch upstream
+git merge upstream/main
+```
