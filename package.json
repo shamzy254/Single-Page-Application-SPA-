@@ -1,0 +1,13 @@
+{
+  "name": "single-page-application-spa",
+  "version": "1.0.0",
+  "description": "A simple single-page application.",
+  "private": true,
+  "scripts": {
+    "start": "serve .",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.6"
+  }
+}
