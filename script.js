@@ -4,7 +4,9 @@ const templates = {
   home: document.getElementById('home-template'),
   todos: document.getElementById('todos-template'),
   create: document.getElementById('create-template'),
+  dictionary: document.getElementById('dictionary-template'),
 };
+const DICTIONARY_API = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 
 function setActiveNav(page) {
   navButtons.forEach(button => {
@@ -26,6 +28,9 @@ function render(page) {
   }
   if (page === 'create') {
     registerCreateEvents();
+  }
+  if (page === 'dictionary') {
+    registerDictionaryEvents();
   }
 }
 
@@ -125,6 +130,90 @@ function registerCreateEvents() {
     } catch (error) {
       responseCard.textContent = 'Failed to submit the post. Please try again later.';
     }
+  });
+}
+
+function getFallbackText(value, fallback) {
+  return value && value.trim().length > 0 ? value : fallback;
+}
+
+function summarizeSynonyms(meanings) {
+  const synonyms = meanings.flatMap(meaning => meaning.definitions.flatMap(def => def.synonyms || []));
+  return [...new Set(synonyms)].slice(0, 8);
+}
+
+function renderDictionaryResult(entry) {
+  const phonetic = getFallbackText(entry.phonetics.find(item => item.text)?.text || '', 'No pronunciation available.');
+  const definitions = entry.meanings.flatMap(meaning =>
+    meaning.definitions.map(def => ({
+      partOfSpeech: meaning.partOfSpeech,
+      text: def.definition,
+    }))
+  );
+  const synonyms = summarizeSynonyms(entry.meanings);
+
+  return `
+    <div class="definition-card">
+      <h2>${entry.word}</h2>
+      <p class="phonetic-line">Pronunciation: ${phonetic}</p>
+      <h3>Definitions</h3>
+      ${definitions.length > 0 ? `
+        <ul>
+          ${definitions.map(def => `<li><strong>${def.partOfSpeech}:</strong> ${def.text}</li>`).join('')}
+        </ul>
+      ` : '<p>No definitions available for this entry.</p>'}
+    </div>
+    <div class="synonym-block">
+      <h3>Synonyms</h3>
+      <p>${synonyms.length > 0 ? synonyms.join(', ') : 'No synonyms available for this word.'}</p>
+    </div>
+  `;
+}
+
+async function performDictionarySearch(word) {
+  const feedback = document.getElementById('dictionary-feedback');
+  const results = document.getElementById('dictionary-results');
+
+  const normalizedWord = word.trim();
+  if (!normalizedWord) {
+    feedback.textContent = 'Please enter a word to search.';
+    results.innerHTML = '';
+    return;
+  }
+
+  feedback.textContent = 'Searching...';
+  results.innerHTML = '';
+
+  try {
+    const response = await fetch(`${DICTIONARY_API}${encodeURIComponent(normalizedWord.toLowerCase())}`);
+    if (!response.ok) {
+      const isNotFound = response.status === 404;
+      feedback.textContent = isNotFound
+        ? `No dictionary entries found for "${normalizedWord}".`
+        : 'Unable to reach the dictionary service right now. Please try again later.';
+      return;
+    }
+
+    const data = await response.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      feedback.textContent = `No dictionary entries found for "${normalizedWord}".`;
+      return;
+    }
+
+    results.innerHTML = renderDictionaryResult(data[0]);
+    feedback.textContent = `Showing results for "${normalizedWord}".`;
+  } catch (error) {
+    feedback.textContent = 'An error occurred while searching. Please check your connection and try again.';
+  }
+}
+
+function registerDictionaryEvents() {
+  const form = document.getElementById('dictionary-form');
+  const input = document.getElementById('dictionary-input');
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    performDictionarySearch(input.value);
   });
 }
 

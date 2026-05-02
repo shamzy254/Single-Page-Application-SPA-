@@ -13,6 +13,7 @@
       <button class="nav-button active" data-page="home">Home</button>
       <button class="nav-button" data-page="todos">Todos</button>
       <button class="nav-button" data-page="create">Create Post</button>
+      <button class="nav-button" data-page="dictionary">Dictionary</button>
     </nav>
   </header>
 
@@ -76,6 +77,22 @@
         <button type="submit" class="primary-button">Submit Post</button>
       </form>
       <div id="create-response" class="response-card"></div>
+    </div>
+  </template>
+
+  <template id="dictionary-template">
+    <div class="page-panel">
+      <h1>Dictionary Search</h1>
+      <p>Enter a word to look up pronunciation, definitions, and synonyms.</p>
+      <form id="dictionary-form" class="dictionary-form">
+        <label>
+          Search word
+          <input type="text" id="dictionary-input" name="word" placeholder="Enter a word" autocomplete="off" />
+        </label>
+        <button type="submit" class="primary-button">Search</button>
+      </form>
+      <div id="dictionary-feedback" class="status-message"></div>
+      <div id="dictionary-results" class="dictionary-results"></div>
     </div>
   </template>
 

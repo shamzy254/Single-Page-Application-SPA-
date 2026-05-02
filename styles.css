@@ -186,7 +186,8 @@ body {
   gap: 1rem;
 }
 
-.create-form label {
+.create-form label,
+.dictionary-form label {
   display: grid;
   gap: 0.5rem;
   font-weight: 600;
@@ -194,7 +195,8 @@ body {
 }
 
 .create-form input,
-.create-form textarea {
+.create-form textarea,
+.dictionary-form input {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -205,6 +207,40 @@ body {
 .create-form textarea {
   min-height: 140px;
   resize: vertical;
+}
+
+.dictionary-form {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dictionary-results {
+  display: grid;
+  gap: 1rem;
+}
+
+.definition-card,
+.phonetic-line,
+.synonym-block {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem 1.1rem;
+}
+
+.definition-card h2,
+.synonym-block h3 {
+  margin-top: 0;
+}
+
+.definition-card ul {
+  margin: 0.65rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.definition-card li {
+  margin-bottom: 0.5rem;
 }
 
 .response-card {

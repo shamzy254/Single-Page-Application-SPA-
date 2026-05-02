@@ -15,6 +15,12 @@ This project is a simple Single Page Application (SPA) built with HTML, CSS, and
 - `styles.css` — app styling and responsive layout
 - `script.js` — SPA routing, event listeners, fetch calls, and DOM manipulation
 
+## Features added
+
+- `Dictionary` page for word searches with pronunciation, definitions, and synonyms
+- graceful handling of missing pronunciation or synonym data
+- validation for empty and invalid search queries
+
 ## How to use
 
 1. Open `index.html` in your browser.
